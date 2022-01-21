@@ -1,0 +1,13 @@
+.card-center-text {
+    text-align: center;
+}
+
+.card-text-color-green {
+    color: rgb(84, 168, 63);
+    font-weight: bold;
+}
+
+.card-text-color-black {
+    color: rgba(0, 0, 0, .65);
+    font-weight: bold;
+}
