@@ -1,0 +1,14 @@
+.modal-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.title-name {
+    margin-bottom: 15px;
+    color: rgba(0, 0, 0, .8);
+}
+
+.span-nutritions {
+    color: rgba(0, 0, 0, 0.8);
+}
