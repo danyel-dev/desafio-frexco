@@ -16,7 +16,7 @@ import '../styles/Card.css'
 import ModalBox from './ModalBox';
 
 
-export default function Product({ product }) {
+export default function Product({ product, handleProductsAdittion }) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -28,7 +28,7 @@ export default function Product({ product }) {
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                         <div className='genus-price'>
                             <span>Genus: { product.genus }</span>
-                            <span className='price'>R${ (Math.random() * 10).toFixed(2) }</span>
+                            <span className='price'>R${ product.preco }</span>
                         </div>
                     </Typography>
 
@@ -58,7 +58,13 @@ export default function Product({ product }) {
                         <ModalBox key={ product.id } product={ product } />
                     </Modal>
 
-                    <BsCart3 onClick={() => {window.alert("Produto adicionado no carrinho") }} className='car-buy' />
+                    <BsCart3
+                        onClick={() => {
+                            handleProductsAdittion(product)
+                            window.alert('Produto adicionado no carrinho')
+                        }}
+                        className='car-buy'
+                    />
                 </CardActions>
             </Card>
         </Grid>
