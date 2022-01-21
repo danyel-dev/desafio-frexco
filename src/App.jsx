@@ -31,6 +31,11 @@ export default function App() {
     setCarrinho(newCarrinho)
   }
 
+  function handleProductsRemove(ProductId) {
+    const newCarrinho = carrinho.filter(Item => Item.id !== ProductId)
+    setCarrinho(newCarrinho)
+  }
+
   return (
     <BrowserRouter>
       <Header />
@@ -46,7 +51,7 @@ export default function App() {
       <Route 
         path="/carrinho"
         exact
-        render={() => <Carrinho carrinho={ carrinho } />}
+        render={() => <Carrinho carrinho={ carrinho } handleProductsRemove={ handleProductsRemove } />}
       />
     </BrowserRouter>
   );
