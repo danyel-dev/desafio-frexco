@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Container } from "@mui/material";
 
 import Title from "../components/Title";
-import ListProduct from '../components/ListProduct';
+import ListProducts from '../components/ListProducts';
 
 
 export default function Home() {
@@ -19,14 +19,10 @@ export default function Home() {
         fetchProducts()
     }, [])
 
-    console.log(products)
-
     return (
         <Container>
-            <Title>
-                Listagem das frutas
-            </Title>
-            <ListProduct products={ products } />
+            <Title>Listagem das frutas</Title>
+            <ListProducts products={ products } />
         </Container>
     );
 }
