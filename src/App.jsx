@@ -9,12 +9,11 @@ import Carrinho from './pages/Carrinho'
 
 export default function App() {
   const [products, setProducts] = useState([])
-  const [carrinho, setCarrinho] = useState([])
   
   useEffect(() => {
     const fetchProducts = async () => {
       const { data } = await axios.get('/api/fruit/all');
-
+      
       const newData = data.map(fruit => {
         fruit.preco = Number((Math.random() * 10).toFixed(2))
         return fruit
@@ -25,10 +24,25 @@ export default function App() {
     fetchProducts()
   }, [])
   
+  const [carrinho, setCarrinho] = useState([])
 
   function handleProductsAdittion(product) {
-    product.quantidade = 1
-    const newCarrinho = [...carrinho, product]
+    let flag = 0
+
+    let newCarrinho = carrinho.map(Item => {
+      if (Item.id == product.id) {
+        Item.quantidade++
+        flag = 1
+      } 
+      return Item
+    })
+
+    if (flag == 0) {
+      const newProduct = product
+      newProduct.quantidade = 1
+      newCarrinho = [...carrinho, newProduct]
+    } 
+  
     setCarrinho(newCarrinho)
   }
 
