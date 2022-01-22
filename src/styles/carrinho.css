@@ -1,3 +1,15 @@
-.button-clean-shopping {
-    margin-top: 50px;
+.info-carrinho {
+    display: flex;
+    justify-content: space-between;
+    margin: 70px 0;
+    gap: 2em;
+    color: rgba(0, 0, 0, .8);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 10px;
+}
+
+.info-carrinho span {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
 }

@@ -16,7 +16,7 @@ export default function App() {
       const { data } = await axios.get('/api/fruit/all');
 
       const newData = data.map(fruit => {
-        fruit.preco = (Math.random() * 10).toFixed(2)
+        fruit.preco = Number((Math.random() * 10).toFixed(2))
         return fruit
       })
       setProducts(newData);
@@ -27,12 +27,28 @@ export default function App() {
   
 
   function handleProductsAdittion(product) {
+    product.quantidade = 1
     const newCarrinho = [...carrinho, product]
     setCarrinho(newCarrinho)
   }
 
   function handleProductsRemove(ProductId) {
     const newCarrinho = carrinho.filter(Item => Item.id !== ProductId)
+    setCarrinho(newCarrinho)
+  }
+
+  function HandleProductsClear() {
+    setCarrinho([])
+  }
+
+  function HandleProductsUpdate(quantidade, id) {
+    const newCarrinho = carrinho.map(Item => {
+      if (Item.id === id) {
+        Item.quantidade = quantidade
+        return Item
+      }
+      return Item
+    })
     setCarrinho(newCarrinho)
   }
 
@@ -51,7 +67,14 @@ export default function App() {
       <Route 
         path="/carrinho"
         exact
-        render={() => <Carrinho carrinho={ carrinho } handleProductsRemove={ handleProductsRemove } />}
+        render={() => 
+          <Carrinho
+            carrinho={ carrinho }
+            handleProductsRemove={ handleProductsRemove }
+            HandleProductsClear={ HandleProductsClear }
+            HandleProductsUpdate={ HandleProductsUpdate }
+          />
+        }
       />
     </BrowserRouter>
   );
