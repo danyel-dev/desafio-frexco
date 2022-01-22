@@ -1,25 +1,31 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import Popover from '@mui/material/Popover';
 
 import { BsCart3 } from 'react-icons/bs';
 
 import '../styles/Card.css'
-import ModalBox from './ModalBox';
+import '../styles/box.css'
 
 
 export default function Product({ product, handleProductsAdittion }) {
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
 
     return (
         <Grid item md={4} xs={12} sm={6}>
@@ -48,15 +54,42 @@ export default function Product({ product, handleProductsAdittion }) {
                 </CardContent>
 
                 <CardActions className='card-buttons'>
-                    <Button onClick={handleOpen} size="small">Mais detalhes</Button>
-                    <Modal
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                    >
-                        <ModalBox key={ product.id } product={ product } />
-                    </Modal>
+                    <div>
+                        <Button aria-describedby={id} size='small' onClick={handleClick}>
+                            Mais detalhes
+                        </Button>
+                        <Popover
+                            id={id}
+                            open={open}
+                            anchorEl={anchorEl}
+                            onClose={handleClose}
+                            anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                            }}
+                        >
+                            <Typography sx={{ p: 2 }}>
+                                <div className='modal-box'> 
+                                    <h2 className='title-name'>{ product.name }</h2>
+                                    <span className='span-nutritions'>
+                                        carbohydrates: { product.nutritions.carbohydrates }
+                                    </span>
+                                    <span className='span-nutritions'>
+                                        protein: { product.nutritions.protein }
+                                    </span>
+                                    <span className='span-nutritions'>
+                                        fat: { product.nutritions.fat }
+                                    </span>
+                                    <span className='span-nutritions'>
+                                        calories: { product.nutritions.calories }
+                                    </span>
+                                    <span className='span-nutritions'>
+                                        sugar: { product.nutritions.sugar }
+                                    </span>
+                                </div>
+                            </Typography>
+                        </Popover>
+                    </div>
 
                     <BsCart3
                         onClick={() => {
